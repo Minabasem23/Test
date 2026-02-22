@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Send Message App</title>
+<title>Mini USDT Wallet</title>
 <style>
 body { font-family: Arial; padding: 20px; background:#eef; }
 input, button { padding: 10px; margin: 5px 0; width: 100%; }
@@ -12,15 +12,15 @@ input, button { padding: 10px; margin: 5px 0; width: 100%; }
 </head>
 <body>
 
-<h2>Send a Message</h2>
-<input type="text" id="user" placeholder="Your name">
-<input type="text" id="text" placeholder="Message">
+<h2>Send a Message / Transaction</h2>
+<input type="text" id="user" placeholder="Your user ID">
+<input type="text" id="text" placeholder="Message / Amount">
 <button id="sendBtn">Send</button>
 
 <div id="messages"></div>
 
 <script>
-const SERVER_URL = "https://huggingface.co/spaces/Minabasem23/Ad"; // رابط السيرفر الخاص بك
+const SERVER_URL = "https://huggingface.co/spaces/Minabasem23/Ad"; // رابط Space الخاص بك
 
 const sendBtn = document.getElementById("sendBtn");
 const messagesDiv = document.getElementById("messages");
@@ -31,14 +31,14 @@ async function updateMessages() {
     const msgs = await res.json();
     messagesDiv.innerHTML = msgs.map(m => `<b>${m.user}:</b> ${m.text}`).join("<br>");
   } catch(e){
-    messagesDiv.innerHTML = "Cannot fetch messages (server offline or wrong URL)";
+    messagesDiv.innerHTML = "Cannot fetch messages (server offline)";
   }
 }
 
 sendBtn.onclick = async () => {
   const user = document.getElementById("user").value.trim();
   const text = document.getElementById("text").value.trim();
-  if(!user || !text) return alert("Enter name and message");
+  if(!user || !text) return alert("Enter user ID and message");
 
   try {
     await fetch(`${SERVER_URL}/send_message`, {
@@ -49,7 +49,7 @@ sendBtn.onclick = async () => {
     document.getElementById("text").value = "";
     updateMessages();
   } catch(e){
-    alert("Cannot send message (server offline or wrong URL)");
+    alert("Cannot send message (server offline)");
   }
 }
 
