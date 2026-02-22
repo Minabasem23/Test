@@ -3,43 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini USDT Wallet Chat</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 500px;
-  margin: auto;
-}
-input, button {
-  padding: 10px;
-  margin: 5px 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-#messages {
-  margin-top: 20px;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-.message {
-  margin-bottom: 8px;
-  padding: 6px;
-  background: #f0f0f0;
-  border-radius: 6px;
-  color: #000;
-}
-</style>
+<title>External Chat</title>
 </head>
 <body>
-
 <h2>Send a Message</h2>
 <input type="text" id="user" placeholder="Your name">
 <input type="text" id="text" placeholder="Message">
 <button id="sendBtn">Send</button>
-
 <div id="messages"></div>
 
 <script>
@@ -48,42 +18,34 @@ const SERVER_URL = "https://huggingface.co/spaces/Minabasem23/Ad";
 const sendBtn = document.getElementById("sendBtn");
 const messagesDiv = document.getElementById("messages");
 
-// تحديث الرسائل من السيرفر
 async function updateMessages() {
   try {
     const res = await fetch(`${SERVER_URL}/messages`);
-    if(!res.ok) throw new Error("Server offline");
     const msgs = await res.json();
-    messagesDiv.innerHTML = msgs.map(m => `<div class="message"><b>${m.user}:</b> ${m.text}</div>`).join("");
+    messagesDiv.innerHTML = msgs.map(m => `<b>${m.user}:</b> ${m.text}`).join("<br>");
   } catch(err) {
-    messagesDiv.innerHTML = `<div class="message" style="color:red;">${err.message}</div>`;
+    messagesDiv.innerHTML = `<div style="color:red;">${err.message}</div>`;
   }
 }
 
-// إرسال رسالة جديدة
 sendBtn.onclick = async () => {
   const user = document.getElementById("user").value.trim();
   const text = document.getElementById("text").value.trim();
   if(!user || !text) return alert("Enter name and message");
 
-  try {
-    const res = await fetch(`${SERVER_URL}/send_message`, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({user, text})
-    });
-    if(!res.ok) throw new Error("Failed to send message");
-    document.getElementById("text").value = "";
-    updateMessages();
-  } catch(err) {
-    alert(err.message);
-  }
+  await fetch(`${SERVER_URL}/send_message`, {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({user, text})
+  });
+
+  document.getElementById("text").value = "";
+  updateMessages();
 }
 
-// تحديث الرسائل كل 3 ثواني تلقائي
+// تحديث تلقائي
 updateMessages();
 setInterval(updateMessages, 3000);
 </script>
-
 </body>
 </html>
