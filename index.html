@@ -5,8 +5,9 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Web App</title>
+<title>Iframe Ads App</title>
 
+<!-- Monetag SDK -->
 <script src="//libtl.com/sdk.js"
 data-zone="10638478"
 data-sdk="show_10638478"></script>
@@ -23,118 +24,134 @@ background:#000;
 font-family:Arial;
 }
 
-.topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:50px;
-background:#111827;
-display:flex;
-align-items:center;
-padding:0 10px;
-z-index:9999;
-}
-
-input{
-flex:1;
-height:35px;
-border:none;
-outline:none;
-border-radius:10px;
-padding:0 10px;
-font-size:14px;
-}
-
-button{
-margin-left:10px;
-height:35px;
-border:none;
-padding:0 15px;
-border-radius:10px;
-background:#2563eb;
-color:#fff;
-font-weight:bold;
-}
-
 iframe{
-position:absolute;
-top:50px;
-left:0;
 width:100%;
-height:calc(100% - 50px);
+height:100%;
 border:none;
 background:#fff;
+}
+
+#loading{
+position:fixed;
+inset:0;
+background:#000;
+display:none;
+justify-content:center;
+align-items:center;
+color:#fff;
+font-size:20px;
+z-index:9999;
+flex-direction:column;
+}
+
+#timer{
+font-size:45px;
+margin-top:10px;
+color:#facc15;
 }
 
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<!-- الموقع -->
+<iframe
+id="frame"
+src="https://www.xnxx-arabic.com">
+</iframe>
 
-<input
-id="url"
-placeholder="https://example.com">
+<!-- شاشة الإعلان -->
+<div id="loading">
 
-<button onclick="openSite()">
-Open
-</button>
+<div>
+📺 Ad Break
+</div>
+
+<div id="timer">
+20
+</div>
 
 </div>
 
-<iframe id="frame"></iframe>
-
 <script>
 
-// ===== حفظ آخر موقع =====
-const saved =
-localStorage.getItem("LAST_SITE");
+// ===== الموقع =====
+const SITE =
+"https://example.com";
 
-if(saved){
+// ===== عناصر =====
+const frame =
+document.getElementById("frame");
 
-document.getElementById("url").value =
-saved;
+const loading =
+document.getElementById("loading");
 
-document.getElementById("frame").src =
-saved;
-}
+const timerEl =
+document.getElementById("timer");
 
 // ===== فتح الموقع =====
-function openSite(){
+frame.src = SITE;
 
-let url =
-document.getElementById("url").value;
-
-if(!url.startsWith("http")){
-url = "https://www.xnxx-arabic.com" + url;
-}
-
-document.getElementById("frame").src =
-url;
-
-localStorage.setItem(
-"LAST_SITE",
-url
-);
-
-}
-
-// ===== إعلان كل دقيقة =====
+// ===== كل دقيقة =====
 setInterval(async ()=>{
 
-if(typeof show_10638478
-!== "function"){
-return;
-}
+// حفظ الرابط الحالي
+let lastURL;
 
 try{
+lastURL =
+frame.contentWindow.location.href;
+}catch{
+lastURL = SITE;
+}
 
-await show_10638478({
+// إخفاء الموقع
+frame.style.display = "none";
+
+// شاشة الانتظار
+loading.style.display = "flex";
+
+// تشغيل الإعلان
+try{
+
+if(typeof show_10638478
+=== "function"){
+
+show_10638478({
 ymid:"user_test"
 });
 
+}
+
 }catch(e){}
+
+// عداد 20 ثانية
+let time = 20;
+
+timerEl.innerText = time;
+
+const countdown =
+setInterval(()=>{
+
+time--;
+
+timerEl.innerText = time;
+
+if(time <= 0){
+
+clearInterval(countdown);
+
+// إظهار الموقع
+loading.style.display = "none";
+
+frame.style.display = "block";
+
+// الرجوع لنفس المكان
+frame.src = lastURL;
+
+}
+
+},1000);
 
 },60000);
 
