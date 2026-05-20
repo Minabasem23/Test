@@ -75,11 +75,9 @@ src="https://www.xnxx-arabic.com">
 
 <script>
 
-// ===== الموقع =====
 const SITE =
 "https://www.xnxx-arabic.com";
 
-// ===== عناصر =====
 const frame =
 document.getElementById("frame");
 
@@ -89,35 +87,25 @@ document.getElementById("loading");
 const timerEl =
 document.getElementById("timer");
 
-// ===== فتح الموقع =====
+// فتح الموقع
 frame.src = SITE;
 
-// ===== كل دقيقة =====
+// كل دقيقة
 setInterval(async ()=>{
 
-// حفظ الرابط الحالي
-let lastURL;
-
-try{
-lastURL =
-frame.contentWindow.location.href;
-}catch{
-lastURL = SITE;
-}
-
-// إخفاء الموقع
+// إخفاء iframe
 frame.style.display = "none";
 
-// شاشة الانتظار
+// شاشة الإعلان
 loading.style.display = "flex";
 
-// تشغيل الإعلان
+// تشغيل إعلان
 try{
 
 if(typeof show_10638478
 === "function"){
 
-show_10638478({
+await show_10638478({
 ymid:"user_test"
 });
 
@@ -146,8 +134,8 @@ loading.style.display = "none";
 
 frame.style.display = "block";
 
-// الرجوع لنفس المكان
-frame.src = lastURL;
+// إعادة فتح الموقع
+frame.src = SITE;
 
 }
 
@@ -156,6 +144,5 @@ frame.src = lastURL;
 },60000);
 
 </script>
-
 </body>
 </html>
