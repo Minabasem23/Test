@@ -1,204 +1,480 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ad Reward Demo</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#0b0f17;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+}
+.app{
+    width:100%;
+    max-width:430px;
+    padding:20px;
+}
+h1{text-align:center;margin:10px 0 20px}
 
-    <title>Demo Withdrawal</title>
+.warning{
+    background:#3a2610;
+    border:1px solid #9b681d;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+    line-height:1.6;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+.ad{
+    height:250px;
+    border:1px solid #303846;
+    border-radius:16px;
+    background:#121824;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    margin-bottom:14px;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
+button{
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:15px;
+    margin-top:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+.watch{background:#28a745;color:white}
+.save{background:#1769aa;color:white}
+.withdraw{background:#8e44ad;color:white}
 
-            font-family: Arial, sans-serif;
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
 
-            background: #17212b;
-            color: white;
-        }
+.stats{
+    background:#121824;
+    border-radius:14px;
+    padding:15px;
+    margin-top:12px;
+}
 
-        .box {
-            width: 90%;
-            max-width: 400px;
+.row{
+    display:flex;
+    justify-content:space-between;
+    margin:9px 0;
+}
 
-            background: #202b36;
+.progress{
+    height:9px;
+    background:#29313d;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
 
-            padding: 25px;
+.progress div{
+    height:100%;
+    width:0%;
+    background:#28a745;
+}
 
-            border-radius: 18px;
+#message{
+    text-align:center;
+    margin-top:14px;
+    min-height:24px;
+}
 
-            box-shadow: 0 10px 30px #0005;
-        }
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#000b;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+.box{
+    width:100%;
+    max-width:390px;
+    background:#121824;
+    border-radius:18px;
+    padding:20px;
+}
 
-        label {
-            display: block;
-            margin: 12px 0 7px;
-        }
-
-        input {
-            width: 100%;
-
-            padding: 13px;
-
-            border: 1px solid #40505e;
-            border-radius: 10px;
-
-            background: #17212b;
-            color: white;
-
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-
-            margin-top: 20px;
-
-            padding: 14px;
-
-            border: 0;
-            border-radius: 10px;
-
-            background: #2aabee;
-            color: white;
-
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .note {
-            margin-top: 15px;
-
-            text-align: center;
-
-            color: #9aa8b5;
-
-            font-size: 12px;
-        }
-
-        #error {
-            color: #ff7070;
-            margin-top: 12px;
-            text-align: center;
-        }
-    </style>
+input{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1px solid #394352;
+    background:#0b0f17;
+    color:white;
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="app">
 
-    <h2>💸 Demo Withdrawal</h2>
+<h1>🎁 Ad Reward</h1>
 
-    <label>المبلغ USDT</label>
+<div class="warning">
+⚠️ <b>تحذير</b><br>
+شاهد الإعلان من خلال زر المشاهدة. هذه نسخة تجريبية، والمكافآت والسحب فيها غير حقيقية.
+</div>
 
-    <input
-        id="amount"
-        type="number"
-        value="0.001"
-        min="0.001"
-        step="0.001"
-    >
-
-    <label>عنوان BEP20</label>
-
-    <input
-        id="address"
-        type="text"
-        placeholder="0x..."
-        autocomplete="off"
-    >
-
-    <button onclick="withdraw()">
-        إرسال طلب السحب
-    </button>
-
-    <div id="error"></div>
-
-    <div class="note">
-        🧪 Demo فقط — لا يتم إرسال أموال حقيقية
+<div class="ad" id="adBox">
+    <div>
+        📺<br>
+        <b>إعلان Monetag</b><br>
+        <small>Zone: 10638478</small>
     </div>
+</div>
+
+<button class="watch" id="watchBtn">
+🎬 مشاهدة الإعلان
+</button>
+
+<!-- الحد اليومي تحت الزر -->
+<div class="stats">
+    <div class="row">
+        <span>👁️ المشاهدات اليومية</span>
+        <b id="views">0 / 150</b>
+    </div>
+
+    <div class="progress">
+        <div id="bar"></div>
+    </div>
+
+    <div class="row">
+        <span>💰 الرصيد التجريبي</span>
+        <b id="balance">0.000</b>
+    </div>
+</div>
+
+<button class="withdraw" id="withdrawBtn">
+💸 سحب تجريبي
+</button>
+
+<button class="save" id="saveBtn">
+💾 حفظ البيانات
+</button>
+
+<div id="message"></div>
 
 </div>
 
+<!-- نافذة السحب -->
+<div class="modal" id="modal">
+<div class="box">
+
+<h2>💸 سحب تجريبي</h2>
+
+<p>الحد الأدنى التجريبي: 0.001</p>
+
+<input
+ id="amount"
+ type="number"
+ min="0.001"
+ step="0.001"
+ placeholder="المبلغ"
+/>
+
+<input
+ id="address"
+ type="text"
+ placeholder="عنوان BEP20 تجريبي"
+/>
+
+<button class="withdraw" id="confirm">
+تأكيد السحب التجريبي
+</button>
+
+<button id="close">
+إغلاق
+</button>
+
+</div>
+</div>
+
+
 <script>
 
-function withdraw() {
+/* =========================
+   إعدادات
+========================= */
+
+const ZONE_ID = "10638478";
+const DAILY_LIMIT = 150;
+const REWARD = 0.001;
+
+
+/* =========================
+   البيانات
+========================= */
+
+let data = JSON.parse(
+    localStorage.getItem("ad_demo_data") || "null"
+);
+
+const today = new Date().toISOString().slice(0,10);
+
+if (!data || data.date !== today) {
+
+    data = {
+        date: today,
+        views: 0,
+        balance: 0
+    };
+
+    saveLocal();
+}
+
+
+/* =========================
+   عناصر الصفحة
+========================= */
+
+const watchBtn = document.getElementById("watchBtn");
+const viewsEl = document.getElementById("views");
+const balanceEl = document.getElementById("balance");
+const bar = document.getElementById("bar");
+const message = document.getElementById("message");
+
+const modal = document.getElementById("modal");
+const withdrawBtn = document.getElementById("withdrawBtn");
+const confirmBtn = document.getElementById("confirm");
+const closeBtn = document.getElementById("close");
+
+
+/* =========================
+   تحديث الواجهة
+========================= */
+
+function updateUI(){
+
+    viewsEl.textContent =
+        `${data.views} / ${DAILY_LIMIT}`;
+
+    balanceEl.textContent =
+        Number(data.balance).toFixed(3);
+
+    bar.style.width =
+        `${Math.min(
+            data.views / DAILY_LIMIT * 100,
+            100
+        )}%`;
+
+    if(data.views >= DAILY_LIMIT){
+
+        watchBtn.disabled = true;
+
+        watchBtn.textContent =
+            "🚫 وصلت للحد اليومي";
+
+    }else{
+
+        watchBtn.disabled = false;
+
+        watchBtn.textContent =
+            "🎬 مشاهدة الإعلان";
+    }
+}
+
+
+/* =========================
+   حفظ محلي
+========================= */
+
+function saveLocal(){
+
+    localStorage.setItem(
+        "ad_demo_data",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================
+   مشاهدة الإعلان
+========================= */
+
+watchBtn.addEventListener("click", async () => {
+
+    if(data.views >= DAILY_LIMIT)
+        return;
+
+    watchBtn.disabled = true;
+
+    message.textContent =
+        "⏳ جاري فتح الإعلان...";
+
+    /*
+      ضع هنا كود Monetag SDK الذي يعطيه
+      Monetag للـ Zone 10638478.
+
+      لا نخمن كود SDK لأن صيغة الإعلان
+      تختلف حسب نوع الـ Zone.
+    */
+
+    try {
+
+        /*
+        مثال:
+        await show_10638478({
+            type: 'end',
+            ymid: 'user'
+        });
+        */
+
+        /*
+          Demo:
+          ننتظر 10 ثوانٍ لمحاكاة مشاهدة الإعلان.
+        */
+
+        await new Promise(resolve =>
+            setTimeout(resolve,10000)
+        );
+
+        data.views++;
+
+        data.balance =
+            Number(data.balance) + REWARD;
+
+        saveLocal();
+        updateUI();
+
+        message.textContent =
+            "✅ تمت إضافة المكافأة التجريبية.";
+
+    } catch(e){
+
+        message.textContent =
+            "❌ لم تكتمل المشاهدة.";
+
+    }
+
+    updateUI();
+});
+
+
+/* =========================
+   السحب التجريبي
+========================= */
+
+withdrawBtn.addEventListener("click", () => {
+
+    if(Number(data.balance) < 0.001){
+
+        message.textContent =
+            "❌ الرصيد غير كافٍ.";
+
+        return;
+    }
+
+    modal.style.display = "flex";
+});
+
+
+closeBtn.addEventListener("click", () => {
+
+    modal.style.display = "none";
+
+});
+
+
+confirmBtn.addEventListener("click", () => {
 
     const amount =
-        document.getElementById("amount").value.trim();
+        Number(document.getElementById("amount").value);
 
     const address =
         document.getElementById("address").value.trim();
 
-    const error =
-        document.getElementById("error");
+    if(amount < 0.001){
 
-    error.textContent = "";
+        alert("الحد الأدنى هو 0.001");
 
-    // تحقق بسيط
-    if (!amount || Number(amount) < 0.001) {
-        error.textContent =
-            "❌ الحد الأدنى التجريبي هو 0.001 USDT";
         return;
     }
 
-    if (!address.startsWith("0x") || address.length !== 42) {
-        error.textContent =
-            "❌ أدخل عنوان BEP20 تجريبي صحيح الشكل.";
+    if(amount > Number(data.balance)){
+
+        alert("الرصيد غير كافٍ");
+
         return;
     }
+
+    if(!address){
+
+        alert("اكتب عنوانًا تجريبيًا");
+
+        return;
+    }
+
+    modal.style.display = "none";
+
+    message.textContent =
+        `🧪 تم إنشاء طلب سحب تجريبي بقيمة ${amount.toFixed(3)}.`;
+
+});
+
+
+/* =========================
+   حفظ البيانات والعودة للبوت
+========================= */
+
+document.getElementById("saveBtn")
+.addEventListener("click", () => {
+
+    saveLocal();
 
     /*
-       تشفير البيانات حتى لا تكسر الأحرف الخاصة
-       رابط Telegram
+      Deep Link تجريبي.
+      لا نرسل عنوانًا حقيقيًا أو ننفذ
+      تحويلًا ماليًا.
     */
-
-    const encodedAmount =
-        encodeURIComponent(amount);
-
-    const encodedAddress =
-        encodeURIComponent(address);
 
     const payload =
-        "withdraw|" +
-        encodedAmount +
-        "|" +
-        encodedAddress;
+        "save_" +
+        Number(data.balance).toFixed(3) +
+        "_" +
+        data.views;
 
-    /*
-       Deep Link
-    */
-
-    const botUsername = "Godbymoon_bot";
-
-    const url =
-        "https://t.me/" +
-        botUsername +
-        "?start=" +
+    const link =
+        "https://t.me/Godbymoon_bot?start=" +
         encodeURIComponent(payload);
 
-    // فتح البوت
-    window.location.href = url;
-}
+    message.textContent =
+        "💾 تم حفظ البيانات محليًا. جاري العودة للبوت...";
+
+    setTimeout(() => {
+
+        window.location.href = link;
+
+    },1000);
+
+});
+
+
+updateUI();
 
 </script>
 
