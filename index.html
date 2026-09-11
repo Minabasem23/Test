@@ -2,30 +2,41 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ad Reward Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="//libtl.com/sdk.js"
+data-zone="10638478"
+data-sdk="show_10638478"></script>
+
+<title>Ad Reward</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    min-height:100vh;
+    background:#080b12;
+    color:white;
     font-family:Arial,sans-serif;
-    background:#0b0f17;
-    color:#fff;
-    display:flex;
-    justify-content:center;
+    min-height:100vh;
+    padding:18px;
 }
+
 .app{
-    width:100%;
     max-width:430px;
-    padding:20px;
+    margin:auto;
 }
-h1{text-align:center;margin:10px 0 20px}
+
+h1{
+    text-align:center;
+    margin:5px 0 18px;
+}
 
 .warning{
-    background:#3a2610;
-    border:1px solid #9b681d;
+    background:#3b2911;
+    border:1px solid #80601e;
     border-radius:14px;
     padding:14px;
     margin-bottom:12px;
@@ -33,69 +44,80 @@ h1{text-align:center;margin:10px 0 20px}
 }
 
 .ad{
-    height:250px;
-    border:1px solid #303846;
+    height:220px;
+    background:#111722;
+    border:1px solid #293243;
     border-radius:16px;
-    background:#121824;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
-    overflow:hidden;
-    margin-bottom:14px;
+    margin-bottom:12px;
+}
+
+.ad small{
+    opacity:.6;
 }
 
 button{
     width:100%;
     border:0;
     border-radius:13px;
-    padding:15px;
-    margin-top:10px;
+    padding:14px;
+    margin:6px 0;
     font-size:16px;
     font-weight:bold;
-    cursor:pointer;
+    color:white;
 }
-
-.watch{background:#28a745;color:white}
-.save{background:#1769aa;color:white}
-.withdraw{background:#8e44ad;color:white}
 
 button:disabled{
     opacity:.45;
-    cursor:not-allowed;
 }
 
-.stats{
-    background:#121824;
+.watch{
+    background:#159447;
+}
+
+.save{
+    background:#1671b8;
+}
+
+.withdraw{
+    background:#7b43a5;
+}
+
+.card{
+    background:#111722;
+    border:1px solid #293243;
     border-radius:14px;
-    padding:15px;
-    margin-top:12px;
+    padding:14px;
+    margin-top:10px;
 }
 
 .row{
     display:flex;
     justify-content:space-between;
-    margin:9px 0;
+    margin:8px 0;
 }
 
-.progress{
-    height:9px;
-    background:#29313d;
+.bar{
+    height:8px;
+    background:#293243;
     border-radius:10px;
     overflow:hidden;
-    margin-top:10px;
 }
 
-.progress div{
+.bar i{
+    display:block;
     height:100%;
     width:0%;
-    background:#28a745;
+    background:#159447;
 }
 
-#message{
+#msg{
     text-align:center;
-    margin-top:14px;
     min-height:24px;
+    margin-top:12px;
 }
 
 .modal{
@@ -105,25 +127,29 @@ button:disabled{
     background:#000b;
     align-items:center;
     justify-content:center;
-    padding:20px;
+    padding:18px;
 }
 
 .box{
     width:100%;
-    max-width:390px;
-    background:#121824;
+    max-width:400px;
+    background:#111722;
     border-radius:18px;
-    padding:20px;
+    padding:18px;
 }
 
 input{
     width:100%;
-    padding:14px;
-    margin:8px 0;
+    padding:13px;
+    margin:7px 0;
     border-radius:10px;
-    border:1px solid #394352;
-    background:#0b0f17;
+    border:1px solid #344052;
+    background:#080b12;
     color:white;
+}
+
+.close{
+    background:#303847;
 }
 </style>
 </head>
@@ -136,345 +162,480 @@ input{
 
 <div class="warning">
 ⚠️ <b>تحذير</b><br>
-شاهد الإعلان من خلال زر المشاهدة. هذه نسخة تجريبية، والمكافآت والسحب فيها غير حقيقية.
+شاهد الإعلان من زر المشاهدة. هذه نسخة تجريبية، والسحب فيها محاكاة فقط.
 </div>
 
-<div class="ad" id="adBox">
+<div class="ad">
     <div>
         📺<br>
         <b>إعلان Monetag</b><br>
-        <small>Zone: 10638478</small>
+        <small>Zone 10638478</small>
     </div>
 </div>
 
-<button class="watch" id="watchBtn">
+<button class="watch" id="watch">
 🎬 مشاهدة الإعلان
 </button>
 
 <!-- الحد اليومي تحت الزر -->
-<div class="stats">
+<div class="card">
+
     <div class="row">
         <span>👁️ المشاهدات اليومية</span>
         <b id="views">0 / 150</b>
     </div>
 
-    <div class="progress">
-        <div id="bar"></div>
+    <div class="bar">
+        <i id="bar"></i>
     </div>
 
     <div class="row">
         <span>💰 الرصيد التجريبي</span>
         <b id="balance">0.000</b>
     </div>
+
 </div>
 
-<button class="withdraw" id="withdrawBtn">
+<button class="withdraw" id="withdraw">
 💸 سحب تجريبي
 </button>
 
-<button class="save" id="saveBtn">
+<button class="save" id="save">
 💾 حفظ البيانات
 </button>
 
-<div id="message"></div>
+<div id="msg"></div>
 
 </div>
 
+
 <!-- نافذة السحب -->
+
 <div class="modal" id="modal">
+
 <div class="box">
 
 <h2>💸 سحب تجريبي</h2>
 
-<p>الحد الأدنى التجريبي: 0.001</p>
+<p>
+هذا السحب تجريبي فقط ولا يتم إرسال أموال حقيقية.
+</p>
 
 <input
- id="amount"
- type="number"
- min="0.001"
- step="0.001"
- placeholder="المبلغ"
-/>
+id="amount"
+type="number"
+min="0.001"
+step="0.001"
+placeholder="المبلغ"
+>
 
 <input
- id="address"
- type="text"
- placeholder="عنوان BEP20 تجريبي"
-/>
+id="address"
+type="text"
+placeholder="عنوان BEP20 تجريبي"
+>
 
-<button class="withdraw" id="confirm">
+<button
+class="withdraw"
+id="confirm"
+>
 تأكيد السحب التجريبي
 </button>
 
-<button id="close">
+<button
+class="close"
+id="close"
+>
 إغلاق
 </button>
 
 </div>
+
 </div>
 
 
 <script>
 
-/* =========================
-   إعدادات
-========================= */
-
-const ZONE_ID = "10638478";
-const DAILY_LIMIT = 150;
+const LIMIT = 150;
 const REWARD = 0.001;
 
+const STORAGE_KEY = "ad_reward_demo";
 
-/* =========================
-   البيانات
-========================= */
 
-let data = JSON.parse(
-    localStorage.getItem("ad_demo_data") || "null"
-);
+function getToday(){
 
-const today = new Date().toISOString().slice(0,10);
+    const d = new Date();
 
-if (!data || data.date !== today) {
+    return d.getFullYear() +
+    "-" +
+    String(d.getMonth()+1).padStart(2,"0") +
+    "-" +
+    String(d.getDate()).padStart(2,"0");
+
+}
+
+
+let data;
+
+try{
+
+    data = JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    );
+
+}catch(e){
+
+    data = null;
+
+}
+
+
+if(
+    !data ||
+    data.date !== getToday()
+){
 
     data = {
-        date: today,
-        views: 0,
-        balance: 0
+
+        date:getToday(),
+
+        views:0,
+
+        balance:0
+
     };
 
-    saveLocal();
-}
-
-
-/* =========================
-   عناصر الصفحة
-========================= */
-
-const watchBtn = document.getElementById("watchBtn");
-const viewsEl = document.getElementById("views");
-const balanceEl = document.getElementById("balance");
-const bar = document.getElementById("bar");
-const message = document.getElementById("message");
-
-const modal = document.getElementById("modal");
-const withdrawBtn = document.getElementById("withdrawBtn");
-const confirmBtn = document.getElementById("confirm");
-const closeBtn = document.getElementById("close");
-
-
-/* =========================
-   تحديث الواجهة
-========================= */
-
-function updateUI(){
-
-    viewsEl.textContent =
-        `${data.views} / ${DAILY_LIMIT}`;
-
-    balanceEl.textContent =
-        Number(data.balance).toFixed(3);
-
-    bar.style.width =
-        `${Math.min(
-            data.views / DAILY_LIMIT * 100,
-            100
-        )}%`;
-
-    if(data.views >= DAILY_LIMIT){
-
-        watchBtn.disabled = true;
-
-        watchBtn.textContent =
-            "🚫 وصلت للحد اليومي";
-
-    }else{
-
-        watchBtn.disabled = false;
-
-        watchBtn.textContent =
-            "🎬 مشاهدة الإعلان";
-    }
-}
-
-
-/* =========================
-   حفظ محلي
-========================= */
-
-function saveLocal(){
-
     localStorage.setItem(
-        "ad_demo_data",
+        STORAGE_KEY,
         JSON.stringify(data)
     );
 
 }
 
 
-/* =========================
-   مشاهدة الإعلان
-========================= */
+const watch =
+document.getElementById("watch");
 
-watchBtn.addEventListener("click", async () => {
+const views =
+document.getElementById("views");
 
-    if(data.views >= DAILY_LIMIT)
+const balance =
+document.getElementById("balance");
+
+const bar =
+document.getElementById("bar");
+
+const msg =
+document.getElementById("msg");
+
+const modal =
+document.getElementById("modal");
+
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+function update(){
+
+    views.textContent =
+        data.views + " / " + LIMIT;
+
+    balance.textContent =
+        Number(data.balance).toFixed(3);
+
+    bar.style.width =
+        Math.min(
+            100,
+            data.views / LIMIT * 100
+        ) + "%";
+
+
+    if(data.views >= LIMIT){
+
+        watch.disabled = true;
+
+        watch.textContent =
+            "🚫 وصلت للحد اليومي";
+
+    }else{
+
+        watch.disabled = false;
+
+        watch.textContent =
+            "🎬 مشاهدة الإعلان";
+
+    }
+
+}
+
+
+update();
+
+
+/*
+================================
+تشغيل إعلان Monetag
+================================
+*/
+
+watch.addEventListener(
+"click",
+async function(){
+
+    if(data.views >= LIMIT){
+
         return;
 
-    watchBtn.disabled = true;
+    }
 
-    message.textContent =
+
+    watch.disabled = true;
+
+    msg.textContent =
         "⏳ جاري فتح الإعلان...";
 
-    /*
-      ضع هنا كود Monetag SDK الذي يعطيه
-      Monetag للـ Zone 10638478.
 
-      لا نخمن كود SDK لأن صيغة الإعلان
-      تختلف حسب نوع الـ Zone.
-    */
+    try{
 
-    try {
+        if(
+            typeof window.show_10638478
+            !== "function"
+        ){
 
-        /*
-        مثال:
-        await show_10638478({
-            type: 'end',
-            ymid: 'user'
+            throw new Error(
+                "Monetag SDK غير جاهز"
+            );
+
+        }
+
+
+        await window.show_10638478({
+
+            type:"end",
+
+            ymid:
+                "demo_" +
+                Date.now()
+
         });
-        */
+
 
         /*
-          Demo:
-          ننتظر 10 ثوانٍ لمحاكاة مشاهدة الإعلان.
+        الإعلان اكتمل
         */
-
-        await new Promise(resolve =>
-            setTimeout(resolve,10000)
-        );
 
         data.views++;
 
         data.balance =
-            Number(data.balance) + REWARD;
+            Number(
+                (
+                    data.balance +
+                    REWARD
+                ).toFixed(3)
+            );
 
-        saveLocal();
-        updateUI();
 
-        message.textContent =
-            "✅ تمت إضافة المكافأة التجريبية.";
+        saveData();
 
-    } catch(e){
+        update();
 
-        message.textContent =
-            "❌ لم تكتمل المشاهدة.";
+
+        msg.textContent =
+            "✅ تمت المشاهدة وإضافة 0.001 تجريبيًا.";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        msg.textContent =
+            "❌ لم يفتح الإعلان أو لم تكتمل العملية.";
+
+        update();
 
     }
 
-    updateUI();
 });
 
 
-/* =========================
-   السحب التجريبي
-========================= */
+/*
+================================
+فتح السحب
+================================
+*/
 
-withdrawBtn.addEventListener("click", () => {
+document
+.getElementById("withdraw")
+.addEventListener(
+"click",
+function(){
 
-    if(Number(data.balance) < 0.001){
+    if(
+        Number(data.balance)
+        < 0.001
+    ){
 
-        message.textContent =
-            "❌ الرصيد غير كافٍ.";
+        msg.textContent =
+            "❌ الرصيد أقل من 0.001.";
 
         return;
+
     }
 
-    modal.style.display = "flex";
-});
 
-
-closeBtn.addEventListener("click", () => {
-
-    modal.style.display = "none";
+    modal.style.display =
+        "flex";
 
 });
 
 
-confirmBtn.addEventListener("click", () => {
+/*
+================================
+إغلاق السحب
+================================
+*/
+
+document
+.getElementById("close")
+.addEventListener(
+"click",
+function(){
+
+    modal.style.display =
+        "none";
+
+});
+
+
+/*
+================================
+تأكيد السحب التجريبي
+================================
+*/
+
+document
+.getElementById("confirm")
+.addEventListener(
+"click",
+function(){
 
     const amount =
-        Number(document.getElementById("amount").value);
+        Number(
+            document
+            .getElementById("amount")
+            .value
+        );
+
 
     const address =
-        document.getElementById("address").value.trim();
+        document
+        .getElementById("address")
+        .value
+        .trim();
+
 
     if(amount < 0.001){
 
-        alert("الحد الأدنى هو 0.001");
+        alert(
+            "الحد الأدنى هو 0.001"
+        );
 
         return;
+
     }
 
-    if(amount > Number(data.balance)){
 
-        alert("الرصيد غير كافٍ");
+    if(
+        amount >
+        Number(data.balance)
+    ){
+
+        alert(
+            "الرصيد غير كافٍ"
+        );
 
         return;
+
     }
+
 
     if(!address){
 
-        alert("اكتب عنوانًا تجريبيًا");
+        alert(
+            "اكتب عنوانًا تجريبيًا"
+        );
 
         return;
+
     }
 
-    modal.style.display = "none";
 
-    message.textContent =
-        `🧪 تم إنشاء طلب سحب تجريبي بقيمة ${amount.toFixed(3)}.`;
+    modal.style.display =
+        "none";
+
+
+    msg.textContent =
+        "🧪 تم إنشاء طلب السحب التجريبي بقيمة " +
+        amount.toFixed(3);
 
 });
 
 
-/* =========================
-   حفظ البيانات والعودة للبوت
-========================= */
+/*
+================================
+حفظ البيانات
+================================
+*/
 
-document.getElementById("saveBtn")
-.addEventListener("click", () => {
+document
+.getElementById("save")
+.addEventListener(
+"click",
+function(){
 
-    saveLocal();
+    saveData();
+
 
     /*
-      Deep Link تجريبي.
-      لا نرسل عنوانًا حقيقيًا أو ننفذ
-      تحويلًا ماليًا.
+    Deep Link إلى البوت
     */
 
     const payload =
         "save_" +
-        Number(data.balance).toFixed(3) +
+        data.views +
         "_" +
-        data.views;
+        Number(data.balance)
+        .toFixed(3);
+
 
     const link =
         "https://t.me/Godbymoon_bot?start=" +
         encodeURIComponent(payload);
 
-    message.textContent =
-        "💾 تم حفظ البيانات محليًا. جاري العودة للبوت...";
 
-    setTimeout(() => {
+    msg.textContent =
+        "💾 تم حفظ البيانات. جاري العودة للبوت...";
 
-        window.location.href = link;
 
-    },1000);
+    setTimeout(
+        function(){
+
+            window.location.href =
+                link;
+
+        },
+        700
+    );
 
 });
 
-
-updateUI();
 
 </script>
 
