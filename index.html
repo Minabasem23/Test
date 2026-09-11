@@ -1,56 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<script src="//libtl.com/sdk.js"
-data-zone="10638478"
-data-sdk="show_10638478"></script>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
+    <title>Demo Withdrawal</title>
 
-html,body{
-margin:0;
-width:100%;
-height:100%;
-overflow:hidden;
-background:#000;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-iframe{
-width:100%;
-height:100%;
-border:none;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-</style>
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background: #17212b;
+            color: white;
+        }
+
+        .box {
+            width: 90%;
+            max-width: 400px;
+
+            background: #202b36;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 10px 30px #0005;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 7px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #40505e;
+            border-radius: 10px;
+
+            background: #17212b;
+            color: white;
+
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #2aabee;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .note {
+            margin-top: 15px;
+
+            text-align: center;
+
+            color: #9aa8b5;
+
+            font-size: 12px;
+        }
+
+        #error {
+            color: #ff7070;
+            margin-top: 12px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- الموقع -->
-<iframe
-src="https://www.xnxx-arabic.com">
-</iframe>
+<div class="box">
+
+    <h2>💸 Demo Withdrawal</h2>
+
+    <label>المبلغ USDT</label>
+
+    <input
+        id="amount"
+        type="number"
+        value="0.001"
+        min="0.001"
+        step="0.001"
+    >
+
+    <label>عنوان BEP20</label>
+
+    <input
+        id="address"
+        type="text"
+        placeholder="0x..."
+        autocomplete="off"
+    >
+
+    <button onclick="withdraw()">
+        إرسال طلب السحب
+    </button>
+
+    <div id="error"></div>
+
+    <div class="note">
+        🧪 Demo فقط — لا يتم إرسال أموال حقيقية
+    </div>
+
+</div>
 
 <script>
 
-// إعلان كل 5 دقائق
-setInterval(async ()=>{
+function withdraw() {
 
-try{
+    const amount =
+        document.getElementById("amount").value.trim();
 
-if(typeof show_10638478
-=== "function"){
+    const address =
+        document.getElementById("address").value.trim();
 
-await show_10638478({
-ymid:"user_test"
-});
+    const error =
+        document.getElementById("error");
 
+    error.textContent = "";
+
+    // تحقق بسيط
+    if (!amount || Number(amount) < 0.001) {
+        error.textContent =
+            "❌ الحد الأدنى التجريبي هو 0.001 USDT";
+        return;
+    }
+
+    if (!address.startsWith("0x") || address.length !== 42) {
+        error.textContent =
+            "❌ أدخل عنوان BEP20 تجريبي صحيح الشكل.";
+        return;
+    }
+
+    /*
+       تشفير البيانات حتى لا تكسر الأحرف الخاصة
+       رابط Telegram
+    */
+
+    const encodedAmount =
+        encodeURIComponent(amount);
+
+    const encodedAddress =
+        encodeURIComponent(address);
+
+    const payload =
+        "withdraw|" +
+        encodedAmount +
+        "|" +
+        encodedAddress;
+
+    /*
+       Deep Link
+    */
+
+    const botUsername = "Godbymoon_bot";
+
+    const url =
+        "https://t.me/" +
+        botUsername +
+        "?start=" +
+        encodeURIComponent(payload);
+
+    // فتح البوت
+    window.location.href = url;
 }
-
-}catch(e){}
-
-},300000);
 
 </script>
 
