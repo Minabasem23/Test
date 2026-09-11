@@ -1,225 +1,430 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Ad Reward Demo</title>
+
+
+<!-- Monetag -->
 
 <script src="//libtl.com/sdk.js"
 data-zone="10638478"
 data-sdk="show_10638478"></script>
 
-<title>Ad Reward</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
 
+html,
 body{
     margin:0;
+    min-height:100%;
     background:#080b12;
     color:white;
     font-family:Arial,sans-serif;
-    min-height:100vh;
+}
+
+body{
     padding:18px;
 }
 
 .app{
+    width:100%;
     max-width:430px;
     margin:auto;
 }
+
+
+/* العنوان */
 
 h1{
     text-align:center;
     margin:5px 0 18px;
 }
 
+
+/* التحذير */
+
 .warning{
+
     background:#3b2911;
+
     border:1px solid #80601e;
+
     border-radius:14px;
+
     padding:14px;
+
     margin-bottom:12px;
+
     line-height:1.6;
 }
 
+
+/* الإعلان */
+
 .ad{
+
     height:220px;
+
     background:#111722;
+
     border:1px solid #293243;
+
     border-radius:16px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     text-align:center;
+
     margin-bottom:12px;
+
+    overflow:hidden;
 }
 
 .ad small{
     opacity:.6;
 }
 
+
+/* الأزرار */
+
 button{
+
     width:100%;
+
     border:0;
+
     border-radius:13px;
+
     padding:14px;
+
     margin:6px 0;
+
     font-size:16px;
+
     font-weight:bold;
+
     color:white;
+
+    cursor:pointer;
 }
 
 button:disabled{
     opacity:.45;
+    cursor:not-allowed;
 }
+
 
 .watch{
     background:#159447;
 }
 
-.save{
-    background:#1671b8;
-}
 
 .withdraw{
     background:#7b43a5;
 }
 
-.card{
-    background:#111722;
-    border:1px solid #293243;
-    border-radius:14px;
-    padding:14px;
-    margin-top:10px;
+
+.save{
+    background:#1671b8;
 }
 
-.row{
-    display:flex;
-    justify-content:space-between;
-    margin:8px 0;
-}
-
-.bar{
-    height:8px;
-    background:#293243;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.bar i{
-    display:block;
-    height:100%;
-    width:0%;
-    background:#159447;
-}
-
-#msg{
-    text-align:center;
-    min-height:24px;
-    margin-top:12px;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:#000b;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-}
-
-.box{
-    width:100%;
-    max-width:400px;
-    background:#111722;
-    border-radius:18px;
-    padding:18px;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin:7px 0;
-    border-radius:10px;
-    border:1px solid #344052;
-    background:#080b12;
-    color:white;
-}
 
 .close{
     background:#303847;
 }
+
+
+/* الإحصائيات */
+
+.card{
+
+    background:#111722;
+
+    border:1px solid #293243;
+
+    border-radius:14px;
+
+    padding:14px;
+
+    margin-top:10px;
+}
+
+
+.row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:8px 0;
+}
+
+
+.bar{
+
+    height:8px;
+
+    background:#293243;
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+
+.bar i{
+
+    display:block;
+
+    height:100%;
+
+    width:0%;
+
+    background:#159447;
+
+    transition:.3s;
+}
+
+
+/* الرسائل */
+
+#msg{
+
+    text-align:center;
+
+    min-height:24px;
+
+    margin-top:12px;
+
+    line-height:1.5;
+}
+
+
+/* نافذة السحب */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:#000b;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:18px;
+
+    z-index:9999;
+}
+
+
+.box{
+
+    width:100%;
+
+    max-width:400px;
+
+    background:#111722;
+
+    border-radius:18px;
+
+    padding:18px;
+}
+
+
+input{
+
+    width:100%;
+
+    padding:13px;
+
+    margin:7px 0;
+
+    border-radius:10px;
+
+    border:1px solid #344052;
+
+    background:#080b12;
+
+    color:white;
+
+    outline:none;
+}
+
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
+
 
 <h1>🎁 Ad Reward</h1>
 
+
+<!-- التحذير فوق الإعلان -->
+
 <div class="warning">
-⚠️ <b>تحذير</b><br>
-شاهد الإعلان من زر المشاهدة. هذه نسخة تجريبية، والسحب فيها محاكاة فقط.
+
+⚠️ <b>تحذير</b>
+
+<br>
+
+شاهد الإعلان من زر المشاهدة.
+
+<br>
+
+هذه نسخة تجريبية، والمكافآت والسحب محاكاة فقط.
+
 </div>
+
+
+<!-- منطقة الإعلان -->
 
 <div class="ad">
-    <div>
-        📺<br>
-        <b>إعلان Monetag</b><br>
-        <small>Zone 10638478</small>
-    </div>
+
+<div>
+
+📺
+
+<br>
+
+<b>Monetag Advertisement</b>
+
+<br>
+
+<small>
+Zone ID: 10638478
+</small>
+
 </div>
 
-<button class="watch" id="watch">
+</div>
+
+
+<!-- زر المشاهدة -->
+
+<button
+class="watch"
+id="watch">
+
 🎬 مشاهدة الإعلان
+
 </button>
 
-<!-- الحد اليومي تحت الزر -->
+
+<!-- الإحصائيات -->
+
 <div class="card">
 
-    <div class="row">
-        <span>👁️ المشاهدات اليومية</span>
-        <b id="views">0 / 150</b>
-    </div>
 
-    <div class="bar">
-        <i id="bar"></i>
-    </div>
+<div class="row">
 
-    <div class="row">
-        <span>💰 الرصيد التجريبي</span>
-        <b id="balance">0.000</b>
-    </div>
+<span>
+👁️ المشاهدات اليومية
+</span>
+
+<b id="views">
+0 / 150
+</b>
 
 </div>
 
-<button class="withdraw" id="withdraw">
-💸 سحب تجريبي
+
+<div class="bar">
+
+<i id="bar"></i>
+
+</div>
+
+
+<div class="row">
+
+<span>
+💰 الرصيد التجريبي
+</span>
+
+<b id="balance">
+0.000
+</b>
+
+</div>
+
+
+</div>
+
+
+<!-- السحب -->
+
+<button
+class="withdraw"
+id="withdraw">
+
+💸 سحب
+
 </button>
 
-<button class="save" id="save">
+
+<!-- الحفظ -->
+
+<button
+class="save"
+id="save">
+
 💾 حفظ البيانات
+
 </button>
+
 
 <div id="msg"></div>
 
+
 </div>
+
 
 
 <!-- نافذة السحب -->
 
-<div class="modal" id="modal">
+<div
+class="modal"
+id="modal">
+
 
 <div class="box">
 
-<h2>💸 سحب تجريبي</h2>
+
+<h2>
+💸 سحب تجريبي
+</h2>
+
 
 <p>
-هذا السحب تجريبي فقط ولا يتم إرسال أموال حقيقية.
+أدخل البيانات لإنشاء طلب السحب التجريبي.
 </p>
+
 
 <input
 id="amount"
@@ -229,66 +434,105 @@ step="0.001"
 placeholder="المبلغ"
 >
 
+
 <input
 id="address"
 type="text"
-placeholder="عنوان BEP20 تجريبي"
+placeholder="عنوان BEP20 التجريبي"
 >
+
 
 <button
 class="withdraw"
-id="confirm"
->
-تأكيد السحب التجريبي
+id="confirm">
+
+🚀 تأكيد وإنشاء الرابط
+
 </button>
+
 
 <button
 class="close"
-id="close"
->
+id="close">
+
 إغلاق
+
 </button>
 
+
 </div>
 
 </div>
+
 
 
 <script>
 
+
+/* ===================================
+   الإعدادات
+=================================== */
+
 const LIMIT = 150;
+
 const REWARD = 0.001;
 
-const STORAGE_KEY = "ad_reward_demo";
+const STORAGE_KEY =
+"ad_reward_demo_10638478";
 
+
+/* ===================================
+   التاريخ
+=================================== */
 
 function getToday(){
 
     const d = new Date();
 
-    return d.getFullYear() +
-    "-" +
-    String(d.getMonth()+1).padStart(2,"0") +
-    "-" +
-    String(d.getDate()).padStart(2,"0");
+    return (
+
+        d.getFullYear()
+        + "-"
+        + String(
+            d.getMonth()+1
+          ).padStart(2,"0")
+        + "-"
+        + String(
+            d.getDate()
+          ).padStart(2,"0")
+
+    );
 
 }
 
 
-let data;
+/* ===================================
+   تحميل البيانات
+=================================== */
+
+let data = null;
+
 
 try{
 
     data = JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
+
+        localStorage.getItem(
+            STORAGE_KEY
+        )
+
     );
 
-}catch(e){
+}catch(error){
 
     data = null;
 
 }
 
+
+/* ===================================
+   يوم جديد
+=================================== */
 
 if(
     !data ||
@@ -305,70 +549,105 @@ if(
 
     };
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
-
 }
 
 
-const watch =
+/* ===================================
+   العناصر
+=================================== */
+
+const watchBtn =
 document.getElementById("watch");
 
-const views =
+
+const viewsEl =
 document.getElementById("views");
 
-const balance =
+
+const balanceEl =
 document.getElementById("balance");
 
-const bar =
+
+const barEl =
 document.getElementById("bar");
 
-const msg =
+
+const messageEl =
 document.getElementById("msg");
+
 
 const modal =
 document.getElementById("modal");
 
 
+/* ===================================
+   حفظ LocalStorage
+=================================== */
+
 function saveData(){
 
     localStorage.setItem(
+
         STORAGE_KEY,
+
         JSON.stringify(data)
+
     );
 
 }
 
 
-function update(){
+/* ===================================
+   تحديث الواجهة
+=================================== */
 
-    views.textContent =
-        data.views + " / " + LIMIT;
+function updateUI(){
 
-    balance.textContent =
-        Number(data.balance).toFixed(3);
 
-    bar.style.width =
+    viewsEl.textContent =
+
+        data.views +
+        " / " +
+        LIMIT;
+
+
+    balanceEl.textContent =
+
+        Number(
+            data.balance
+        ).toFixed(3);
+
+
+    barEl.style.width =
+
         Math.min(
+
             100,
-            data.views / LIMIT * 100
+
+            (
+                data.views /
+                LIMIT
+            ) * 100
+
         ) + "%";
 
 
-    if(data.views >= LIMIT){
+    if(
+        data.views >= LIMIT
+    ){
 
-        watch.disabled = true;
+        watchBtn.disabled = true;
 
-        watch.textContent =
+        watchBtn.textContent =
             "🚫 وصلت للحد اليومي";
 
-    }else{
+    }
 
-        watch.disabled = false;
+    else{
 
-        watch.textContent =
+        watchBtn.disabled = false;
+
+        watchBtn.textContent =
             "🎬 مشاهدة الإعلان";
 
     }
@@ -376,33 +655,43 @@ function update(){
 }
 
 
-update();
+saveData();
+
+updateUI();
 
 
-/*
-================================
-تشغيل إعلان Monetag
-================================
-*/
 
-watch.addEventListener(
+/* ===================================
+   مشاهدة الإعلان
+=================================== */
+
+watchBtn.addEventListener(
+
 "click",
+
 async function(){
 
-    if(data.views >= LIMIT){
+
+    if(
+        data.views >= LIMIT
+    ){
 
         return;
 
     }
 
 
-    watch.disabled = true;
+    watchBtn.disabled = true;
 
-    msg.textContent =
+
+    messageEl.textContent =
         "⏳ جاري فتح الإعلان...";
 
 
     try{
+
+
+        /* التأكد من SDK */
 
         if(
             typeof window.show_10638478
@@ -416,6 +705,10 @@ async function(){
         }
 
 
+        /*
+         تشغيل إعلان Monetag
+        */
+
         await window.show_10638478({
 
             type:"end",
@@ -428,67 +721,70 @@ async function(){
 
 
         /*
-        الإعلان اكتمل
+         نجاح الإعلان
         */
 
         data.views++;
 
+
         data.balance =
+
             Number(
+
                 (
-                    data.balance +
+                    Number(data.balance)
+                    +
                     REWARD
+
                 ).toFixed(3)
+
             );
 
 
         saveData();
 
-        update();
+        updateUI();
 
 
-        msg.textContent =
-            "✅ تمت المشاهدة وإضافة 0.001 تجريبيًا.";
+        messageEl.textContent =
+
+            "✅ تمت المشاهدة وإضافة " +
+            REWARD +
+            " تجريبيًا.";
 
 
-    }catch(error){
+    }
+
+    catch(error){
+
 
         console.error(error);
 
-        msg.textContent =
-            "❌ لم يفتح الإعلان أو لم تكتمل العملية.";
 
-        update();
+        messageEl.textContent =
+
+            "❌ لم يتم فتح الإعلان أو لم تكتمل المشاهدة.";
+
+
+        updateUI();
 
     }
 
 });
 
 
-/*
-================================
-فتح السحب
-================================
-*/
+
+/* ===================================
+   فتح نافذة السحب
+=================================== */
 
 document
 .getElementById("withdraw")
 .addEventListener(
+
 "click",
+
 function(){
-
-    if(
-        Number(data.balance)
-        < 0.001
-    ){
-
-        msg.textContent =
-            "❌ الرصيد أقل من 0.001.";
-
-        return;
-
-    }
-
 
     modal.style.display =
         "flex";
@@ -496,16 +792,17 @@ function(){
 });
 
 
-/*
-================================
-إغلاق السحب
-================================
-*/
+
+/* ===================================
+   إغلاق نافذة السحب
+=================================== */
 
 document
 .getElementById("close")
 .addEventListener(
+
 "click",
+
 function(){
 
     modal.style.display =
@@ -514,37 +811,46 @@ function(){
 });
 
 
-/*
-================================
-تأكيد السحب التجريبي
-================================
-*/
+
+/* ===================================
+   إنشاء Deep Link للسحب
+=================================== */
 
 document
 .getElementById("confirm")
 .addEventListener(
+
 "click",
+
 function(){
 
-    const amount =
-        Number(
-            document
-            .getElementById("amount")
-            .value
-        );
+
+    const amount = Number(
+
+        document
+        .getElementById("amount")
+        .value
+
+    );
 
 
     const address =
+
         document
         .getElementById("address")
         .value
         .trim();
 
 
-    if(amount < 0.001){
+    /* التحقق */
+
+    if(
+        !amount ||
+        amount < 0.001
+    ){
 
         alert(
-            "الحد الأدنى هو 0.001"
+            "❌ الحد الأدنى هو 0.001"
         );
 
         return;
@@ -558,7 +864,10 @@ function(){
     ){
 
         alert(
-            "الرصيد غير كافٍ"
+            "❌ الرصيد غير كافٍ\n\n" +
+            "الرصيد الحالي: " +
+            Number(data.balance)
+            .toFixed(3)
         );
 
         return;
@@ -569,7 +878,7 @@ function(){
     if(!address){
 
         alert(
-            "اكتب عنوانًا تجريبيًا"
+            "❌ اكتب العنوان"
         );
 
         return;
@@ -577,67 +886,126 @@ function(){
     }
 
 
+    /*
+     إنشاء Payload
+    */
+
+    const payload =
+
+        "withdraw_" +
+
+        amount.toFixed(3) +
+
+        "_" +
+
+        address;
+
+
+    /*
+     إنشاء Deep Link
+    */
+
+    const deepLink =
+
+        "https://t.me/Godbymoon_bot?start=" +
+
+        encodeURIComponent(
+            payload
+        );
+
+
+    /*
+     إغلاق النافذة
+    */
+
     modal.style.display =
         "none";
 
 
-    msg.textContent =
-        "🧪 تم إنشاء طلب السحب التجريبي بقيمة " +
-        amount.toFixed(3);
+    messageEl.textContent =
+
+        "🚀 جاري فتح Telegram...";
+
+
+    /*
+     فتح Telegram
+    */
+
+    window.location.href =
+        deepLink;
 
 });
 
 
-/*
-================================
-حفظ البيانات
-================================
-*/
+
+/* ===================================
+   زر حفظ البيانات
+=================================== */
 
 document
 .getElementById("save")
 .addEventListener(
+
 "click",
+
 function(){
+
+
+    /*
+     حفظ البيانات محليًا
+    */
 
     saveData();
 
 
     /*
-    Deep Link إلى البوت
+     إنشاء Payload
     */
 
     const payload =
+
         "save_" +
+
         data.views +
+
         "_" +
-        Number(data.balance)
-        .toFixed(3);
+
+        Number(
+            data.balance
+        ).toFixed(3);
 
 
-    const link =
+    /*
+     إنشاء Deep Link
+    */
+
+    const deepLink =
+
         "https://t.me/Godbymoon_bot?start=" +
-        encodeURIComponent(payload);
+
+        encodeURIComponent(
+            payload
+        );
 
 
-    msg.textContent =
-        "💾 تم حفظ البيانات. جاري العودة للبوت...";
+    messageEl.textContent =
+
+        "💾 تم الحفظ، جاري فتح Telegram...";
 
 
-    setTimeout(
-        function(){
+    /*
+     فتح Telegram
+    */
 
-            window.location.href =
-                link;
-
-        },
-        700
-    );
+    window.location.href =
+        deepLink;
 
 });
 
 
 </script>
 
+
 </body>
+
 </html>
