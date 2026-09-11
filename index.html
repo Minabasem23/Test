@@ -10,13 +10,12 @@
 
 <title>Ad Reward Demo</title>
 
-
 <!-- Monetag -->
-
-<script src="//libtl.com/sdk.js"
-data-zone="10638478"
-data-sdk="show_10638478"></script>
-
+<script
+    src="//libtl.com/sdk.js"
+    data-zone="10638478"
+    data-sdk="show_10638478">
+</script>
 
 <style>
 
@@ -43,55 +42,30 @@ body{
     margin:auto;
 }
 
-
-/* العنوان */
-
 h1{
     text-align:center;
     margin:5px 0 18px;
 }
 
-
-/* التحذير */
-
 .warning{
-
     background:#3b2911;
-
     border:1px solid #80601e;
-
     border-radius:14px;
-
     padding:14px;
-
     margin-bottom:12px;
-
     line-height:1.6;
 }
 
-
-/* الإعلان */
-
 .ad{
-
     height:220px;
-
     background:#111722;
-
     border:1px solid #293243;
-
     border-radius:16px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     text-align:center;
-
     margin-bottom:12px;
-
     overflow:hidden;
 }
 
@@ -99,27 +73,15 @@ h1{
     opacity:.6;
 }
 
-
-/* الأزرار */
-
 button{
-
     width:100%;
-
     border:0;
-
     border-radius:13px;
-
     padding:14px;
-
     margin:6px 0;
-
     font-size:16px;
-
     font-weight:bold;
-
     color:white;
-
     cursor:pointer;
 }
 
@@ -128,164 +90,97 @@ button:disabled{
     cursor:not-allowed;
 }
 
-
 .watch{
     background:#159447;
 }
-
 
 .withdraw{
     background:#7b43a5;
 }
 
-
 .save{
     background:#1671b8;
 }
-
 
 .close{
     background:#303847;
 }
 
-
-/* الإحصائيات */
-
 .card{
-
     background:#111722;
-
     border:1px solid #293243;
-
     border-radius:14px;
-
     padding:14px;
-
     margin-top:10px;
 }
 
-
 .row{
-
     display:flex;
-
     justify-content:space-between;
-
     margin:8px 0;
 }
 
-
 .bar{
-
     height:8px;
-
     background:#293243;
-
     border-radius:10px;
-
     overflow:hidden;
 }
 
-
 .bar i{
-
     display:block;
-
     height:100%;
-
     width:0%;
-
     background:#159447;
-
     transition:.3s;
 }
 
-
-/* الرسائل */
-
 #msg{
-
     text-align:center;
-
     min-height:24px;
-
     margin-top:12px;
-
     line-height:1.5;
 }
 
-
-/* نافذة السحب */
-
 .modal{
-
     display:none;
-
     position:fixed;
-
     inset:0;
-
     background:#000b;
-
     align-items:center;
-
     justify-content:center;
-
     padding:18px;
-
     z-index:9999;
 }
 
-
 .box{
-
     width:100%;
-
     max-width:400px;
-
     background:#111722;
-
     border-radius:18px;
-
     padding:18px;
 }
 
-
 input{
-
     width:100%;
-
     padding:13px;
-
     margin:7px 0;
-
     border-radius:10px;
-
     border:1px solid #344052;
-
     background:#080b12;
-
     color:white;
-
     outline:none;
 }
-
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <div class="app">
 
-
 <h1>🎁 Ad Reward</h1>
-
-
-<!-- التحذير فوق الإعلان -->
 
 <div class="warning">
 
@@ -300,9 +195,6 @@ input{
 هذه نسخة تجريبية، والمكافآت والسحب محاكاة فقط.
 
 </div>
-
-
-<!-- منطقة الإعلان -->
 
 <div class="ad">
 
@@ -324,22 +216,15 @@ Zone ID: 10638478
 
 </div>
 
-
-<!-- زر المشاهدة -->
-
 <button
-class="watch"
-id="watch">
+    class="watch"
+    id="watch">
 
 🎬 مشاهدة الإعلان
 
 </button>
 
-
-<!-- الإحصائيات -->
-
 <div class="card">
-
 
 <div class="row">
 
@@ -353,13 +238,11 @@ id="watch">
 
 </div>
 
-
 <div class="bar">
 
 <i id="bar"></i>
 
 </div>
-
 
 <div class="row">
 
@@ -373,101 +256,79 @@ id="watch">
 
 </div>
 
-
 </div>
 
-
-<!-- السحب -->
-
 <button
-class="withdraw"
-id="withdraw">
+    class="withdraw"
+    id="withdraw">
 
 💸 سحب
 
 </button>
 
-
-<!-- الحفظ -->
-
 <button
-class="save"
-id="save">
+    class="save"
+    id="save">
 
 💾 حفظ البيانات
 
 </button>
 
-
 <div id="msg"></div>
 
-
 </div>
-
 
 
 <!-- نافذة السحب -->
 
 <div
-class="modal"
-id="modal">
-
+    class="modal"
+    id="modal">
 
 <div class="box">
-
 
 <h2>
 💸 سحب تجريبي
 </h2>
 
-
 <p>
 أدخل البيانات لإنشاء طلب السحب التجريبي.
 </p>
 
+<input
+    id="amount"
+    type="number"
+    min="0.001"
+    step="0.001"
+    placeholder="المبلغ">
 
 <input
-id="amount"
-type="number"
-min="0.001"
-step="0.001"
-placeholder="المبلغ"
->
-
-
-<input
-id="address"
-type="text"
-placeholder="عنوان BEP20 التجريبي"
->
-
+    id="address"
+    type="text"
+    placeholder="عنوان BEP20 التجريبي">
 
 <button
-class="withdraw"
-id="confirm">
+    class="withdraw"
+    id="confirm">
 
 🚀 تأكيد وإنشاء الرابط
 
 </button>
 
-
 <button
-class="close"
-id="close">
+    class="close"
+    id="close">
 
 إغلاق
 
 </button>
 
-
 </div>
 
 </div>
-
 
 
 <script>
-
 
 /* ===================================
    الإعدادات
@@ -478,7 +339,10 @@ const LIMIT = 150;
 const REWARD = 0.001;
 
 const STORAGE_KEY =
-"ad_reward_demo_10638478";
+    "ad_reward_demo_10638478";
+
+const BOT_USERNAME =
+    "Godbymoon_bot";
 
 
 /* ===================================
@@ -490,17 +354,15 @@ function getToday(){
     const d = new Date();
 
     return (
-
         d.getFullYear()
         + "-"
         + String(
-            d.getMonth()+1
-          ).padStart(2,"0")
+            d.getMonth() + 1
+        ).padStart(2,"0")
         + "-"
         + String(
             d.getDate()
-          ).padStart(2,"0")
-
+        ).padStart(2,"0")
     );
 
 }
@@ -512,15 +374,12 @@ function getToday(){
 
 let data = null;
 
-
 try{
 
     data = JSON.parse(
-
         localStorage.getItem(
             STORAGE_KEY
         )
-
     );
 
 }catch(error){
@@ -557,31 +416,26 @@ if(
 =================================== */
 
 const watchBtn =
-document.getElementById("watch");
-
+    document.getElementById("watch");
 
 const viewsEl =
-document.getElementById("views");
-
+    document.getElementById("views");
 
 const balanceEl =
-document.getElementById("balance");
-
+    document.getElementById("balance");
 
 const barEl =
-document.getElementById("bar");
-
+    document.getElementById("bar");
 
 const messageEl =
-document.getElementById("msg");
-
+    document.getElementById("msg");
 
 const modal =
-document.getElementById("modal");
+    document.getElementById("modal");
 
 
 /* ===================================
-   حفظ LocalStorage
+   حفظ البيانات محليًا
 =================================== */
 
 function saveData(){
@@ -603,32 +457,23 @@ function saveData(){
 
 function updateUI(){
 
-
     viewsEl.textContent =
-
         data.views +
         " / " +
         LIMIT;
 
-
     balanceEl.textContent =
-
         Number(
             data.balance
         ).toFixed(3);
 
-
     barEl.style.width =
-
         Math.min(
-
             100,
-
             (
                 data.views /
                 LIMIT
             ) * 100
-
         ) + "%";
 
 
@@ -641,9 +486,7 @@ function updateUI(){
         watchBtn.textContent =
             "🚫 وصلت للحد اليومي";
 
-    }
-
-    else{
+    }else{
 
         watchBtn.disabled = false;
 
@@ -660,118 +503,96 @@ saveData();
 updateUI();
 
 
-
 /* ===================================
    مشاهدة الإعلان
 =================================== */
 
 watchBtn.addEventListener(
 
-"click",
+    "click",
 
-async function(){
-
-
-    if(
-        data.views >= LIMIT
-    ){
-
-        return;
-
-    }
-
-
-    watchBtn.disabled = true;
-
-
-    messageEl.textContent =
-        "⏳ جاري فتح الإعلان...";
-
-
-    try{
-
-
-        /* التأكد من SDK */
+    async function(){
 
         if(
-            typeof window.show_10638478
-            !== "function"
+            data.views >= LIMIT
         ){
 
-            throw new Error(
-                "Monetag SDK غير جاهز"
-            );
+            return;
 
         }
 
-
-        /*
-         تشغيل إعلان Monetag
-        */
-
-        await window.show_10638478({
-
-            type:"end",
-
-            ymid:
-                "demo_" +
-                Date.now()
-
-        });
-
-
-        /*
-         نجاح الإعلان
-        */
-
-        data.views++;
-
-
-        data.balance =
-
-            Number(
-
-                (
-                    Number(data.balance)
-                    +
-                    REWARD
-
-                ).toFixed(3)
-
-            );
-
-
-        saveData();
-
-        updateUI();
-
+        watchBtn.disabled = true;
 
         messageEl.textContent =
+            "⏳ جاري فتح الإعلان...";
 
-            "✅ تمت المشاهدة وإضافة " +
-            REWARD +
-            " تجريبيًا.";
 
+        try{
+
+            if(
+                typeof window.show_10638478
+                !== "function"
+            ){
+
+                throw new Error(
+                    "Monetag SDK غير جاهز"
+                );
+
+            }
+
+
+            await window.show_10638478({
+
+                type:"end",
+
+                ymid:
+                    "demo_" +
+                    Date.now()
+
+            });
+
+
+            data.views++;
+
+            data.balance =
+                Number(
+
+                    (
+                        Number(data.balance)
+                        +
+                        REWARD
+
+                    ).toFixed(3)
+
+                );
+
+
+            saveData();
+
+            updateUI();
+
+
+            messageEl.textContent =
+                "✅ تمت المشاهدة وإضافة " +
+                REWARD +
+                " تجريبيًا.";
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+            messageEl.textContent =
+                "❌ لم يتم فتح الإعلان أو لم تكتمل المشاهدة.";
+
+            updateUI();
+
+        }
 
     }
 
-    catch(error){
-
-
-        console.error(error);
-
-
-        messageEl.textContent =
-
-            "❌ لم يتم فتح الإعلان أو لم تكتمل المشاهدة.";
-
-
-        updateUI();
-
-    }
-
-});
-
+);
 
 
 /* ===================================
@@ -779,18 +600,19 @@ async function(){
 =================================== */
 
 document
-.getElementById("withdraw")
-.addEventListener(
+    .getElementById("withdraw")
+    .addEventListener(
 
-"click",
+        "click",
 
-function(){
+        function(){
 
-    modal.style.display =
-        "flex";
+            modal.style.display =
+                "flex";
 
-});
+        }
 
+    );
 
 
 /* ===================================
@@ -798,214 +620,285 @@ function(){
 =================================== */
 
 document
-.getElementById("close")
-.addEventListener(
+    .getElementById("close")
+    .addEventListener(
 
-"click",
+        "click",
 
-function(){
+        function(){
 
-    modal.style.display =
-        "none";
+            modal.style.display =
+                "none";
 
-});
-
-
-
-/* ===================================
-   إنشاء Deep Link للسحب
-=================================== */
-
-document
-.getElementById("confirm")
-.addEventListener(
-
-"click",
-
-function(){
-
-
-    const amount = Number(
-
-        document
-        .getElementById("amount")
-        .value
+        }
 
     );
 
 
-    const address =
+/* ===================================
+   فتح Telegram
+=================================== */
 
-        document
-        .getElementById("address")
-        .value
-        .trim();
+function openTelegram(payload){
 
-
-    /* التحقق */
-
-    if(
-        !amount ||
-        amount < 0.001
-    ){
-
-        alert(
-            "❌ الحد الأدنى هو 0.001"
-        );
-
-        return;
-
-    }
-
-
-    if(
-        amount >
-        Number(data.balance)
-    ){
-
-        alert(
-            "❌ الرصيد غير كافٍ\n\n" +
-            "الرصيد الحالي: " +
-            Number(data.balance)
-            .toFixed(3)
-        );
-
-        return;
-
-    }
-
-
-    if(!address){
-
-        alert(
-            "❌ اكتب العنوان"
-        );
-
-        return;
-
-    }
+    const encoded =
+        encodeURIComponent(payload);
 
 
     /*
-     إنشاء Payload
+       رابط تطبيق Telegram
     */
 
-    const payload =
-
-        "withdraw_" +
-
-        amount.toFixed(3) +
-
-        "_" +
-
-        address;
+    const tgLink =
+        "tg://resolve?domain=" +
+        BOT_USERNAME +
+        "&start=" +
+        encoded;
 
 
     /*
-     إنشاء Deep Link
+       رابط الويب كـ fallback
     */
 
-    const deepLink =
-
-        "https://t.me/Godbymoon_bot?start=" +
-
-        encodeURIComponent(
-            payload
-        );
-
-
-    /*
-     إغلاق النافذة
-    */
-
-    modal.style.display =
-        "none";
+    const webLink =
+        "https://t.me/" +
+        BOT_USERNAME +
+        "?start=" +
+        encoded;
 
 
     messageEl.textContent =
-
         "🚀 جاري فتح Telegram...";
 
 
     /*
-     فتح Telegram
+       نحاول فتح تطبيق Telegram
     */
 
     window.location.href =
-        deepLink;
+        tgLink;
 
-});
 
+    /*
+       إذا لم يفتح التطبيق،
+       نستخدم t.me
+    */
+
+    setTimeout(
+
+        function(){
+
+            window.location.href =
+                webLink;
+
+        },
+
+        1200
+
+    );
+
+}
 
 
 /* ===================================
-   زر حفظ البيانات
+   تأكيد السحب
 =================================== */
 
 document
-.getElementById("save")
-.addEventListener(
+    .getElementById("confirm")
+    .addEventListener(
 
-"click",
+        "click",
 
-function(){
+        function(){
 
+            const amount =
+                Number(
 
-    /*
-     حفظ البيانات محليًا
-    */
+                    document
+                    .getElementById("amount")
+                    .value
 
-    saveData();
-
-
-    /*
-     إنشاء Payload
-    */
-
-    const payload =
-
-        "save_" +
-
-        data.views +
-
-        "_" +
-
-        Number(
-            data.balance
-        ).toFixed(3);
+                );
 
 
-    /*
-     إنشاء Deep Link
-    */
-
-    const deepLink =
-
-        "https://t.me/Godbymoon_bot?start=" +
-
-        encodeURIComponent(
-            payload
-        );
+            const address =
+                document
+                .getElementById("address")
+                .value
+                .trim();
 
 
-    messageEl.textContent =
+            /* التحقق من المبلغ */
 
-        "💾 تم الحفظ، جاري فتح Telegram...";
+            if(
+                !amount ||
+                amount < 0.001
+            ){
+
+                alert(
+                    "❌ الحد الأدنى هو 0.001"
+                );
+
+                return;
+
+            }
 
 
-    /*
-     فتح Telegram
-    */
+            /* التحقق من الرصيد */
 
-    window.location.href =
-        deepLink;
+            if(
+                amount >
+                Number(data.balance)
+            ){
 
-});
+                alert(
 
+                    "❌ الرصيد غير كافٍ\n\n" +
+
+                    "الرصيد الحالي: " +
+
+                    Number(
+                        data.balance
+                    ).toFixed(3)
+
+                );
+
+                return;
+
+            }
+
+
+            /* التحقق من العنوان */
+
+            if(!address){
+
+                alert(
+                    "❌ اكتب العنوان"
+                );
+
+                return;
+
+            }
+
+
+            /*
+               إنشاء Payload
+            */
+
+            const payload =
+
+                "withdraw_" +
+
+                amount.toFixed(3) +
+
+                "_" +
+
+                address;
+
+
+            /*
+               إغلاق النافذة
+            */
+
+            modal.style.display =
+                "none";
+
+
+            /*
+               فتح Telegram
+            */
+
+            openTelegram(payload);
+
+        }
+
+    );
+
+
+/* ===================================
+   حفظ البيانات وفتح Telegram
+=================================== */
+
+document
+    .getElementById("save")
+    .addEventListener(
+
+        "click",
+
+        function(){
+
+            /*
+               حفظ LocalStorage
+            */
+
+            saveData();
+
+
+            /*
+               إنشاء Payload
+            */
+
+            const payload =
+
+                "save_" +
+
+                data.views +
+
+                "_" +
+
+                Number(
+                    data.balance
+                ).toFixed(3);
+
+
+            /*
+               فتح Telegram
+            */
+
+            openTelegram(payload);
+
+        }
+
+    );
+
+
+/* ===================================
+   إغلاق النافذة عند الضغط خارجها
+=================================== */
+
+modal.addEventListener(
+
+    "click",
+
+    function(event){
+
+        if(
+            event.target === modal
+        ){
+
+            modal.style.display =
+                "none";
+
+        }
+
+    }
+
+);
 
 </script>
-
 
 </body>
 
 </html>
+
+المهم في النسخة دي
+
+- 💸 السحب: ينشئ "withdraw_AMOUNT_ADDRESS" ثم يحاول فتح Telegram.
+- 💾 الحفظ: ينشئ "save_VIEWS_BALANCE" ثم يفتح Telegram.
+- يحاول أولًا "tg://" لفتح تطبيق Telegram مباشرة.
+- بعد 1.2 ثانية يستخدم "https://t.me/..." كـ fallback.
+- لا يحتاج Bot API لمجرد فتح الـDeep Link.
+- معالجة الـ"start" نفسها يجب أن تكون في البوت؛ الكود الحالي فقط ينشئ ويرسل الـpayload.
+
+لو كنت تفتح الصفحة داخل Telegram نفسه، فهناك احتمال أن الـWebView يتعامل مع "tg://" بشكل مختلف؛ في هذه الحالة يمكن تعديل الفتح ليتوافق مع Telegram Mini App تحديدًا.
